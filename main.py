@@ -1,6 +1,5 @@
-def main():
-    print("hello world")
+import pandas as pd
+from matplotlib import pyplot as plt
 
-
-if __name__ == "__main__":
-    main()
+imp = pd.read_csv('AI_Impact_on_Jobs_2030.csv')
+print(imp.info)
