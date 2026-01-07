@@ -23,4 +23,10 @@ Link to dataset:
 
 ## Visualization Plan
 
-Come up with ideas for graphs to test your hypotheses
+1. Boxplot of Automation_Probability_2030 grouped by Education_Level.
+2. Scatter plot of AI_Exposure_Index vs Automation_Probability_2030, colored by Risk_Category
+3. Scatter plot of Average_Salary vs Automation_Probability_2030
+4. Bubble chart: Job_Title on x-axis, Automation_Probability_2030 on y-axis, bubble size = Tech_Growth_Factor.
+5. Clustered bar chart showing average Automation_Probability_2030 for each Job_Title across low, medium, and high Tech_Growth_Factor.
+
+https://python-graph-gallery.com/boxplot/
