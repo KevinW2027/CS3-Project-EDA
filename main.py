@@ -10,12 +10,16 @@ print(df.head(8))
 sns.set_theme(style='whitegrid', context='notebook')
 
 #1 Boxplot /  Violinplot
-edu_order  = sorted(df["Education_Level"].unique())
-sns.violinplot(
+edu_order = sorted(df["Education_Level"].unique())
+
+sns.boxplot(
     data=df,
-    x= "Education level",
-    y= "Automation Prob 2030",
-    order= edu_order,
-    inner= "quartile",
-    cut= 0
+    x="Education_Level",
+    y="Automation_Probability_2030",
+    order=edu_order
 )
+plt.title("Automation Probability by Education Level")
+plt.xlabel("Education Level")
+plt.ylabel("Automation Probability (2030)")
+plt.savefig("box_automation_by_education.png", dpi=300)
+plt.show()
