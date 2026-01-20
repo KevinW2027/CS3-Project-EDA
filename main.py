@@ -1,71 +1,115 @@
 import pandas as pd
 from matplotlib import pyplot as plt
 import seaborn as sns 
-df = pd.read_csv('AI_Impact_on_Jobs_2030.csv')
-#print(imp.info)
-df = df.iloc[:, :-10]
-#print(df.columns)
-#print(df.head(8))
-'''job_counts_df = df["Job_Title"].value_counts().reset_index()
-job_counts_df.columns = ["Job_Title", "Count"]
-print(job_counts_df)'''
+import kagglehub
 
-se_df = df[df["Job_Title"] == "Software Engineer"]
+df = pd.read_csv('Social Media Addiction in Students.csv')
+print(df.columns)
+# -----------------------
+# Global style
+# -----------------------
+sns.set_theme(style="whitegrid", context="notebook")
+plt.rcParams["figure.figsize"] = (8, 5)
 
-sns.set_theme(style='whitegrid', context='notebook')
+# Load your dataset
+# df = pd.read_csv("social_media_addiction.csv")
 
-#1 Boxplot /  Violinplot
-edu_order = sorted(df["Education_Level"].unique())
-
-sns.boxplot(
-    data=df,
-    x="Education_Level",
-    y="Automation_Probability_2030",
-    order=edu_order
-)
-plt.title("Automation Probability by Education Level")
-plt.xlabel("Education Level")
-plt.ylabel("Automation Probability (2030)")
-plt.savefig("box_automation_by_education.png", dpi=300)
-plt.close()
-
-#2
+# -----------------------
+# Question 1: Age vs Addiction Score
+# -----------------------
+plt.figure()
 sns.scatterplot(
-    data=se_df,
-    x="AI_Exposure_Index",
-    y="Automation_Probability_2030",
-    hue="Risk_Category",
+    data=df,
+    x="Age",
+    y="Addicted_Score",
+    hue="Gender",
     alpha=0.7
 )
-
 sns.regplot(
-    data=se_df,
-    x="AI_Exposure_Index",
-    y="Automation_Probability_2030",
+    data=df,
+    x="Age",
+    y="Addicted_Score",
     scatter=False,
     color="black",
     line_kws={"linestyle": "--"}
 )
-
-plt.title("AI Exposure vs Automation Probability")
-plt.xlabel("AI Exposure Index")
-plt.ylabel("Automation Probability (2030)")
-plt.legend(title="Risk Category")
-plt.savefig("AI Exposure vs Automation Probability.png", dpi=300)
+plt.title("Age vs Social Media Addiction Score")
+plt.xlabel("Age")
+plt.ylabel("Addicted Score")
+plt.tight_layout()
+plt.savefig("scatter_age_addiction.png", dpi=300)
 plt.close()
 
-#3
+# -----------------------
+# Question 2: Gender Differences
+# -----------------------
+plt.figure()
+sns.violinplot(
+    data=df,
+    x="Gender",
+    y="Addicted_Score",
+    inner="quartile"
+)
+plt.title("Social Media Addiction by Gender")
+plt.xlabel("Gender")
+plt.ylabel("Addicted Score")
+plt.tight_layout()
+plt.savefig("violin_gender_addiction.png", dpi=300)
+plt.close()
+
+# -----------------------
+# Question 3: Academic Performance
+# -----------------------
+# Question 3: Academic Level vs Addiction Score
+plt.figure()
+sns.boxplot(
+    data=df,
+    x="Academic_Level",
+    y="Addicted_Score"
+)
+plt.title("Social Media Addiction Score by Academic Level")
+plt.xlabel("Academic Level")
+plt.ylabel("Addicted Score")
+plt.tight_layout()
+plt.savefig("box_academiclevel_addiction.png", dpi=300)
+plt.close()
+
+# -----------------------
+# Question 4: Sleep vs Mental Health
+# -----------------------
+plt.figure()
 sns.scatterplot(
     data=df,
-    x="Average_Salary",
-    y="Automation_Probability_2030",
-    hue="Education_Level",
-    alpha=0.7
+    x="Sleep_Hours_Per_Night",
+    y="Mental_Health_Score",
+    size="Avg_Daily_Usage_Hours",
+    hue="Avg_Daily_Usage_Hours",
+    alpha=0.7,
+    palette="viridis"
 )
-
-plt.title("Average Salary vs Automation Probability")
-plt.xlabel("Average Salary")
-plt.ylabel("Automation Probability (2030)")
-plt.legend(title="Education Level")
-plt.savefig("Average Salary vs Automation Probability.png", dpi=300)
+plt.title("Sleep & Social Media Usage vs Mental Health")
+plt.xlabel("Sleep Hours per Night")
+plt.ylabel("Mental Health Score")
+plt.legend(title="Avg Daily Usage Hours", bbox_to_anchor=(1.05, 1), loc="upper left")
+plt.tight_layout()
+plt.savefig("scatter_sleep_mentalhealth.png", dpi=300)
 plt.close()
+
+# -----------------------
+# Question 5: Most Used Platform
+# -----------------------
+plt.figure()
+sns.boxplot(
+    data=df,
+    x="Most_Used_Platform",
+    y="Addicted_Score"
+)
+plt.title("Addiction Score by Most Used Platform")
+plt.xlabel("Most Used Platform")
+plt.ylabel("Addicted Score")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig("box_platform_addiction.png", dpi=300)
+plt.close()
+
+
